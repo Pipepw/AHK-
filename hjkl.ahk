@@ -3,24 +3,64 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
-!j::
+;;************光标移动**********
+!j::  	;;光标下移
     Send , {Down}
     Return
-
-!l::
+!l::	;;光标右移
     Send , {Right}
     Return
-
-!k::
+!k::	;;光标左移
     Send , {Up}
     Return
-
-!h::
+!h::	;;光标上移
     Send , {Left}
     Return
+!a::	;;光标移动到行首
+	Send , {Home}
+	Return
+!e::	;;光标移动到行尾
+	Send , {End}
+	Return
+!+$h::	;;光标移动到上一个单词
+	Send , ^{Left}
+	Return
+!+$l::	;;光标移动到下一个单词
+	Send , ^{Right}
+	Return
 
-CapsLock::`
+;;*********删除************
+!+$j::	;;向左删除单词
+	Send , ^{Backspace}
+	Return
+!+$K::	;;向右删除单词
+	Send , ^{Del}
+	Return
+!n::	;;向左删除
+	Send , {Backspace}
+	Return
+!m::	;;向右删除
+	Send , {Del}
+	Return
 
+;;**********替换*************
+!u::	;;撤销
+	Send , ^{z}
+	Return
+!i::	;;反撤销
+	Send , ^{y}
+	Return
+!+$a::	;;全选
+	Send , ^{a}
+	Return
+!s::	;;保存
+	Send , ^{s}
+	Return
+!f::	;;搜索
+	Send , ^{f}
+	Return
+
+CapsLock::`		;;将Caps替换为 `
 $+CapsLock::    ;用shift+caps替代原来的caps
     SetCapsLockState % getkeystate("CapsLock", "t") ? "off" : "on"
     return
@@ -93,8 +133,7 @@ return
     else if S=-1
         WinRestore,A
     return
-!m::
-#m:: WinMinimize, A
+
 
 ;*************调节亮度*****************
 $F12::
